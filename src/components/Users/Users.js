@@ -4,12 +4,31 @@ import Card from "../UI/Card";
 import classes from "./Users.module.css";
 import { useDispatch } from "react-redux";
 import { addAllUsers } from "../../store/actions/users";
+import Pagination from './Pagination';
 
 
 const Users = props => {
     
     const[users, setUsers] = useState([]);
-   const dispatch = useDispatch();
+    const [currentPage, setCurrentPage]=useState(1);
+    const [usersPerPage, setUsersPerPage] = useState(5);
+     const dispatch = useDispatch();
+
+
+    const paginate = (pageNumber) =>{
+        console.log("PAGE NUMBER: "+pageNumber);
+        if(pageNumber<=0){
+            setCurrentPage(1);
+            return;
+        }
+        if(pageNumber>=Math.ceil(users.length/usersPerPage)){
+            console.log("USAO"+Math.ceil(users.length/usersPerPage))
+            setCurrentPage(Math.ceil(users.length/usersPerPage))
+            return;
+        }
+        setCurrentPage(pageNumber);
+    }
+
     useEffect(()=> {
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(res => {
@@ -26,8 +45,16 @@ const Users = props => {
         })
     },[])
 
+    //Get current posts
+    const indexOfLastUser = currentPage * usersPerPage;
+    console.log(indexOfLastUser)
+    const indexOfFirstUser = indexOfLastUser-usersPerPage;
+    console.log(indexOfFirstUser)
+    console.log(users.slice(indexOfFirstUser,indexOfLastUser));
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+    console.log(currentUsers)
 
-    const usersList = users.map(user => <UserItem key={user.id} user={user} onShow={props.onShow}/>)
+    const usersList = currentUsers.map(user => <UserItem key={user.id} user={user} onShow={props.onShow}/>)
 
     return(
         <section className={classes.users}>
@@ -35,6 +62,7 @@ const Users = props => {
            <ul>
                {usersList}
            </ul>
+           <Pagination usersPerPage={usersPerPage} totalUsers={users} paginate={paginate} currentPage={currentPage}/>
        </Card>
        </section>
     )

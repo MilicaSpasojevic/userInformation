@@ -1,0 +1,37 @@
+.pages{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pagesCont{
+    margin-right: 1rem;
+}
+
+.page{
+   
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+    padding: 0.3rem;
+    margin: 0.2rem;
+    border: 1px solid #ccc;
+}
+
+.linkActive{
+    text-decoration: none;
+    color: black;
+    padding: 0.3rem;
+    margin: 0.2rem;
+    border: 1px solid #ccc;
+    background-color: rgba(235, 218, 197, 0.63);
+}
+
+.link:hover,
+.link:active{
+    background-color: rgba(235, 218, 197, 0.63);
+}
+
+
