@@ -2,6 +2,7 @@
 import  classes  from './Pagination.module.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
+import {IoIosArrowForward, IoIosArrowBack} from 'react-icons/io'
 
 function Pagination(props) {
     const pageNumbers = [];
@@ -13,9 +14,11 @@ function Pagination(props) {
 
     
     return (
+  
         <div className={classes.pagesCont}>
+            {pageNumbers.length > 1 && 
             <ul className={classes.pages}>
-            <Link className={classes.link} onClick={()=>props.paginate(props.currentPage-1)} to="/users">prev</Link> 
+            {pageNumbers.length>1 && <Link className={classes.link} onClick={()=>props.paginate(props.currentPage-1)} to="/users"><IoIosArrowBack className={classes.icon}/></Link> }
                 {pageNumbers.map(number=>{
                     console.log("NUMBER:"+number);
                     return(
@@ -25,8 +28,8 @@ function Pagination(props) {
                         
                     </li>)
                 })}
-                <Link className={classes.link} onClick={()=>props.paginate(props.currentPage+1) } to="/users">next</Link> 
-            </ul>
+                {pageNumbers.length>1 && <Link className={classes.link} onClick={()=>props.paginate(props.currentPage+1) } to="/users"><IoIosArrowForward className={classes.icon}/></Link> }
+            </ul>}
         </div>
     )
 }

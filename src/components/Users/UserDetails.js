@@ -5,10 +5,11 @@ import { Redirect } from 'react-router';
  
  const UserDetails = props => {
 
-    const [user, setUser] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
+    const user= props.user;
+   // const [user, setUser] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
-    useEffect(()=> {
+   /* useEffect(()=> {
        
         fetch('https://jsonplaceholder.typicode.com/users/'+props.userId)
         .then(res => {
@@ -30,7 +31,7 @@ import { Redirect } from 'react-router';
             setIsLoading(true);
         })
 
-    },[])
+    },[])*/
 
 
     return(

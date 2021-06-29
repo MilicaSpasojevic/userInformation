@@ -10,3 +10,37 @@
     padding: 0;
 }
 
+.search{
+    width: 100%;
+    display: flex;
+    padding: 0.5;
+    padding: 10px;
+    border: 0.05rem solid rgba(238, 238, 238, 0.658);;
+    background-color: rgba(238, 238, 238, 0.658);
+    border-radius: 10px;
+    width: 95%;
+    margin-left: 1.5rem;
+    margin-right: 0.2rem;
+    
+}
+
+.icon{
+    color:rgba(59, 59, 59, 0.658);
+}
+
+.search input{
+    border: none;
+    appearance: none;
+    width: 100%;
+    background-color: rgba(238, 238, 238, 0);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    
+    
+}
+
+
+.search input:focus{
+    outline: none;
+}

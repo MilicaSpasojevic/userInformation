@@ -13,6 +13,7 @@ const UserDetailsScreen = props => {
     const [usersPost, setUsersPost] = useState([]);
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
     const users = useSelector(state=>state.user.allUsers)
 
     useEffect(()=> {
@@ -25,7 +26,26 @@ const UserDetailsScreen = props => {
             console.log(data)
             console.log(Array.isArray(data) )
             setUsersPost(data);
-            setIsLoading(false)
+           // setIsLoading(false)
+           fetch('https://jsonplaceholder.typicode.com/users/'+params.userId)
+            .then(res => {
+                 console.log(res.status)
+                 if(res.status>=404){
+                    setError(true);
+                     }
+                    return res.json();
+                    })
+            .then(data => {
+                console.log(data)
+                console.log(Array.isArray(data) )
+                setUser(data);
+                setIsLoading(false);
+            }
+            )
+            .catch(function(error){
+            console.log("GRESKA"+error);
+            setIsLoading(true);
+            })
 
         })
         .catch(function(error){
@@ -47,7 +67,7 @@ const UserDetailsScreen = props => {
         <section className={classes.posts}>
         <div>
         <Card className={classes.userPosts}>
-            <UserDetails userId={params.userId}/>
+            <UserDetails userId={params.userId} user={user}/>
         </Card>
         </div>
         <div className={classes.userInformations}>

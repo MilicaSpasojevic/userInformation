@@ -5,6 +5,7 @@ import classes from "./Users.module.css";
 import { useDispatch } from "react-redux";
 import { addAllUsers } from "../../store/actions/users";
 import Pagination from './Pagination';
+import {IoMdSearch} from 'react-icons/io';
 
 
 const Users = props => {
@@ -12,7 +13,8 @@ const Users = props => {
     const[users, setUsers] = useState([]);
     const [currentPage, setCurrentPage]=useState(1);
     const [usersPerPage, setUsersPerPage] = useState(5);
-     const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [searchText, setSearchText]=useState("");
 
 
     const paginate = (pageNumber) =>{
@@ -50,19 +52,37 @@ const Users = props => {
     console.log(indexOfLastUser)
     const indexOfFirstUser = indexOfLastUser-usersPerPage;
     console.log(indexOfFirstUser)
-    console.log(users.slice(indexOfFirstUser,indexOfLastUser));
-    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+    
+
+    const userList = users.filter(user => {
+        if(searchText===""){
+            return user;
+            }
+        if(user.name.toLowerCase().includes(searchText.toLowerCase())){
+            return user;
+        }
+    });
+
+    const currentUsers = userList.slice(indexOfFirstUser, indexOfLastUser);
     console.log(currentUsers)
 
-    const usersList = currentUsers.map(user => <UserItem key={user.id} user={user} onShow={props.onShow}/>)
+    /*.map(user=>
+        <UserItem key={user.id} user={user}/>
+    )*/ 
 
     return(
         <section className={classes.users}>
        <Card>
+           <div className={classes.search}>
+           <IoMdSearch className={classes.icon}/>
+           <input type="text" placeholder="Search..." onChange={(event)=>setSearchText(event.target.value)}/>
+           
+           </div>
            <ul>
-               {usersList}
+               {currentUsers.map(user=>
+        <UserItem key={user.id} user={user}/>)}
            </ul>
-           <Pagination usersPerPage={usersPerPage} totalUsers={users} paginate={paginate} currentPage={currentPage}/>
+           <Pagination usersPerPage={usersPerPage} totalUsers={userList} paginate={paginate} currentPage={currentPage}/>
        </Card>
        </section>
     )
