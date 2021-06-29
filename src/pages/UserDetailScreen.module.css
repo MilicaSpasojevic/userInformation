@@ -1,0 +1,25 @@
+.posts{
+    
+    max-width: 60rem;
+    width: 100%;
+    margin: 8rem auto;
+}
+
+.posts ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.userInformations {
+    margin-top: 2rem;
+}
+
+.userPosts{
+    min-width: 50%;
+    
+}
+
+.start{
+    text-align: center;
+}
